@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+	<display-name>sywebit</display-name>
+
+	<context-param>
+		<!-- Set the context file which will be used to initialize Spring -->
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring-sywebit.xml</param-value>
+	</context-param>
+
+	<listener>
+		<!-- TODO: What was this for...? -->
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<servlet>
+		<!-- sywebit's central dispatcher for http requests -->
+		<!-- see http://static.springsource.org/spring/docs/2.5.x/api/org/springframework/web/servlet/DispatcherServlet.html -->
+		<servlet-name>sywebit</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<session-config>
+		<!-- Session timeout is one minute by default -->
+		<!-- After logging in, the timeout is increased by the post-login-handler -->
+		<session-timeout>1</session-timeout>
+	</session-config>
+
+	<!-- Configure caching: -->
+	<!-- See http://docs.codehaus.org/display/JETTY/LastModifiedCacheControl -->
+	<servlet>
+		<servlet-name>default</servlet-name>
+		<servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+		<init-param>
+			<param-name>cacheControl</param-name>
+			<param-value>max-age=3600,public</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>sywebit</servlet-name>
+		<url-pattern>*.html</url-pattern>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Remove at least some whitespaces from the generated HTML -->
+	<!-- See http://stackoverflow.com/questions/208736/strip-whitespace-from-jsp-output -->
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<trim-directive-whitespaces>true</trim-directive-whitespaces>
+		</jsp-property-group>
+	</jsp-config>
+	
+</web-app>
