@@ -9,6 +9,7 @@ import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.stereotype.Service;
 
 import de.uni_koeln.spinfo.antlr4.webGrammarLexer;
@@ -21,17 +22,19 @@ public class Antlr4WebEdit {
 	public AntlrValidationResponse processEntry(final String input) {
 
 		webGrammarLexer lexer = initLexer(input);
+		lexer.removeErrorListeners();
 		ErrorListener lexerErrorListener = new ErrorListener(ErrorType.Lexer);
 		lexer.addErrorListener(lexerErrorListener);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		tokens.fill();
 
-		webGrammarParser p = new webGrammarParser(tokens);
+		webGrammarParser parser = new webGrammarParser(tokens);
+		parser.removeParseListeners();
 		ErrorListener parserErrorListener = new ErrorListener(ErrorType.Parser);
-		p.addErrorListener(parserErrorListener);
-		p.setBuildParseTree(true);
-		p.startSymb();
-		p.reset();
+		parser.addErrorListener(parserErrorListener);
+		parser.setBuildParseTree(true);
+		parser.startSymb();
+		parser.reset();
 
 		AntlrValidationResponse response = new AntlrValidationResponse();
 		response.setDate(new Date());
@@ -82,11 +85,11 @@ public class Antlr4WebEdit {
 				this.hasErrors = true;
 			}
 			setErrorMessage(errorType.getName() + " @line " + line + ":"
-					+ charPositionInLine + " " + msg);
+					+ charPositionInLine + " at " + offendingSymbol + ": " + msg);
 		}
 
 		private void setErrorMessage(String errorMessage) {
-			this.errorMessages.add(errorMessage);
+			this.errorMessages.add(StringEscapeUtils.escapeHtml4(errorMessage));
 		}
 
 		public List<String> getErrorMessages() {
