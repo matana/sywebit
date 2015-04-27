@@ -9,3 +9,6 @@ bin/
 .svn
 .gwt/
 .metadata/
+.settings/
+.classpath
+
