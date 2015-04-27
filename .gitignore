@@ -1,36 +1,13 @@
-<<<<<<< HEAD
 logs/
 target/
 exports/
 bin/
-=======
-bin/
-exports/
-logs/
-sywebit.antlr4/target/classes/*
-sywebit.antlr4/target/maven-archiver/*
-sywebit.webapp/target/*
-target/generated-sources/annotations/*
-target/maven-archiver/*
-target/surefire/*
-target/*.jar
-target/*.war
-target/sywebit*
-
->>>>>>> d53ed3f88913c2ac000b50ab9e5c2d627812198a
 *.jar
 *.class
 .cache
 .DS_Store
 .svn
-<<<<<<< HEAD
 .gwt/
 .metadata/
 .settings/
 .classpath
-
-=======
-
-.gwt/
-.metadata/
->>>>>>> d53ed3f88913c2ac000b50ab9e5c2d627812198a
