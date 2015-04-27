@@ -1,6 +1,27 @@
 .error {
 	color: red;
 }
+<<<<<<< HEAD
 .success {
 	color: green;
+=======
+
+.success {
+	color: green;
+}
+
+#entry_text_area {
+	width: 800px;
+	height: 150px;
+	max-width: 800px;
+	min-width: 800px;
+}
+
+#server_message {
+	position: absolute;
+	width: 800px;
+	height: 150px;
+	border: 1px solid #000;
+	overflow: scroll;
+>>>>>>> d53ed3f88913c2ac000b50ab9e5c2d627812198a
 }

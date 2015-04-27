@@ -36,6 +36,7 @@ public class Antlr4WebEdit {
 		parser.startSymb();
 		parser.reset();
 
+
 		AntlrValidationResponse response = new AntlrValidationResponse();
 		response.setDate(new Date());
 		if (lexerErrorListener.hasErrors)
